@@ -1,0 +1,199 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Tugas 12 - Cloud Computing</h1>
+            <p>Implementasi Platform as a Service (PaaS) Gratis untuk Deployment Aplikasi Web Modern</p>
+            <a href="#team" class="cta-button">
+                <i class="fas fa-users"></i> Lihat Anggota Kelompok
+            </a>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Anggota Kelompok 11</h2>
+                <p class="section-subtitle">Tim yang bertanggung jawab dalam pengerjaan Tugas 12 Cloud Computing</p>
+            </div>
+            
+            <div class="team-grid">
+                {% for member in team_members %}
+                <div class="team-card fade-in-up">
+                    <div class="member-avatar">{{ member.name[0] }}</div>
+                    <h3 class="member-name">{{ member.name }}</h3>
+                    <p class="member-nim">NIM: {{ member.nim }}</p>
+                    <p class="member-role">{{ member.role }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Tasks Section -->
+    <section class="section" id="tasks" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Detail Tugas</h2>
+                <p class="section-subtitle">Berikut adalah rincian tugas yang harus diselesaikan oleh Kelompok 11</p>
+            </div>
+            
+            <div class="task-list">
+                {% for task in tasks %}
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">{{ task.id }}</div>
+                        <h3 class="task-title">{{ task.title }}</h3>
+                        <span class="task-status">{{ task.status }}</span>
+                    </div>
+                    <p class="task-description">{{ task.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- PaaS Providers Section -->
+    <section class="section" id="paas">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Penyedia PaaS Gratis</h2>
+                <p class="section-subtitle">Platform as a Service (PaaS) yang menawarkan layanan gratis untuk deployment aplikasi</p>
+            </div>
+            
+            <div class="paas-grid">
+                {% for provider in paas_providers %}
+                <div class="paas-card fade-in-up">
+                    <div class="paas-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 class="paas-name">{{ provider.name }}</h3>
+                    <p class="paas-description">{{ provider.description }}</p>
+                    
+                    <ul class="paas-features">
+                        {% for feature in provider.features %}
+                        <li>{{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <a href="{{ provider.link }}" target="_blank" class="paas-link">
+                        Kunjungi Website <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Deployment Guide Section -->
+    <section class="section" id="deployment" style="background-color: #f8f9fa;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Panduan Deployment</h2>
+                <p class="section-subtitle">Langkah-langkah untuk mendeploy aplikasi Flask ke Railway (PaaS gratis)</p>
+            </div>
+            
+            <div class="task-list">
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">1</div>
+                        <h3 class="task-title">Persiapan Aplikasi</h3>
+                    </div>
+                    <p class="task-description">
+                        Pastikan aplikasi Flask Anda sudah memiliki file <code>requirements.txt</code>, <code>Procfile</code>, 
+                        dan sudah diinisialisasi dengan Git. File <code>requirements.txt</code> harus berisi semua dependensi 
+                        yang diperlukan.
+                    </p>
+                </div>
+                
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">2</div>
+                        <h3 class="task-title">Buat Akun Railway</h3>
+                    </div>
+                    <p class="task-description">
+                        Daftar akun gratis di <a href="https://railway.app" target="_blank">Railway.app</a> menggunakan 
+                        GitHub, GitLab, atau email. Railway memberikan $5 credit gratis setiap bulan yang cukup untuk 
+                        hosting aplikasi sederhana.
+                    </p>
+                </div>
+                
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">3</div>
+                        <h3 class="task-title">Deploy dari GitHub</h3>
+                    </div>
+                    <p class="task-description">
+                        Di dashboard Railway, pilih "New Project" → "Deploy from GitHub repo". Pilih repository Anda 
+                        dan Railway akan otomatis mendeteksi aplikasi Flask dan melakukan deployment.
+                    </p>
+                </div>
+                
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">4</div>
+                        <h3 class="task-title">Konfigurasi Environment</h3>
+                    </div>
+                    <p class="task-description">
+                        Atur environment variables jika diperlukan melalui dashboard Railway. Untuk Flask, pastikan 
+                        <code>FLASK_ENV=production</code> dan Railway akan otomatis menangani PORT binding.
+                    </p>
+                </div>
+                
+                <div class="task-card fade-in-up">
+                    <div class="task-header">
+                        <div class="task-id">5</div>
+                        <h3 class="task-title">Akses Aplikasi</h3>
+                    </div>
+                    <p class="task-description">
+                        Setelah deployment selesai, Railway akan memberikan URL unik untuk mengakses aplikasi Anda. 
+                        URL tersebut dapat diakses secara publik dari mana saja.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Kontak & Feedback</h2>
+                <p class="section-subtitle">Hubungi kami jika Anda memiliki pertanyaan atau masukan mengenai proyek ini</p>
+            </div>
+            
+            <form class="contact-form" action="{{ url_for('submit_contact') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Masukkan nama Anda" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Masukkan email Anda" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Pesan</label>
+                    <textarea id="message" name="message" class="form-control" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Kirim Pesan
+                </button>
+            </form>
+        </div>
+    </section>
+    
+    {% if request.args.get('message_sent') %}
+    <div class="container">
+        <div class="alert alert-success">
+            <span><i class="fas fa-check-circle"></i> Pesan Anda telah berhasil dikirim!</span>
+            <button class="alert-close">&times;</button>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelompok 11 - Tugas PaaS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="logo">
+                <i class="fas fa-cloud logo-icon"></i>
+                <span>Kelompok 11</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li><a href="{{ url_for('team') }}" class="{% if request.path == '/team' %}active{% endif %}">Team</a></li>
+                <li><a href="{{ url_for('tasks_page') }}" class="{% if request.path == '/tasks' %}active{% endif %}">Tugas</a></li>
+                <li><a href="{{ url_for('paas') }}" class="{% if request.path == '/paas' %}active{% endif %}">PaaS</a></li>
+                <li><a href="{{ url_for('deployment') }}" class="{% if request.path == '/deployment' %}active{% endif %}">Deployment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">Kelompok 11</div>
+                    <p class="footer-description">
+                        Aplikasi web ini dibuat untuk memenuhi Tugas 12 Mata Kuliah Cloud Computing, 
+                        dengan fokus pada penggunaan Platform as a Service (PaaS) gratis.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="{{ url_for('index') }}">Home</a></li>
+                        <li><a href="{{ url_for('team') }}">Team</a></li>
+                        <li><a href="{{ url_for('tasks_page') }}">Tugas</a></li>
+                        <li><a href="{{ url_for('paas') }}">PaaS Providers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-users"></i> Kelompok 11</p>
+                    <p><i class="fas fa-book"></i> Tugas 12 - Cloud Computing</p>
+                    <p><i class="fas fa-university"></i> Universitas Teknologi</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Kelompok 11. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Alert close functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const closeButtons = document.querySelectorAll('.alert-close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.parentElement.style.display = 'none';
+                });
+            });
+            
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Add animation to elements when they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe elements with animation class
+            document.querySelectorAll('.team-card, .task-card, .paas-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
